@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  influxdb:
+    image: influxdb:2.7-alpine
+    container_name: influxdb
+    restart: always
+    ports:
+      - 8086:8086
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=muaddib
+      - DOCKER_INFLUXDB_INIT_PASSWORD=melange!
+      - DOCKER_INFLUXDB_INIT_ORG=riderzlabs
+      - DOCKER_INFLUXDB_INIT_BUCKET=arboretum
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=pi_SensorToken2025!
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+volumes:
+  influxdb-data:
+  grafana-data:
