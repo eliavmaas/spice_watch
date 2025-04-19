@@ -4,23 +4,25 @@ import adafruit_dht
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-# DHT11 setup
+# Sensor Setup
 dhtDevice = adafruit_dht.DHT11(board.D4)
+location = "pi3-sensor"
 
-# InfluxDB config
+# InfluxDB Configuration
 url = "http://localhost:8086"
 token = "pi_SensorToken2025!"
 org = "riderzlabs"
 bucket = "arboretum"
-location = "pi3-sensor"
 
-client = InfluxDBClient(url=url, token=token, org=org)
+# Connect to InfluxDB
+client = InfluxDBClient(url=url, token=token, org=org, timeout=10_000)
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 while True:
     try:
         temp_c = float(dhtDevice.temperature)
         humidity = float(dhtDevice.humidity)
+
         print(f"Temp={temp_c:.1f}C Humidity={humidity:.1f}%")
 
         point = (
@@ -33,11 +35,11 @@ while True:
         write_api.write(bucket=bucket, org=org, record=point)
 
     except RuntimeError as e:
-        print(f"Runtime Error: {e}")
-        time.sleep(2)
-        continue
+        print(f"DHT11 sensor error: {e}")
+        # DHT11 can fail intermittently — we keep going
     except Exception as e:
-        print(f"Unexpected Error: {e}")
-        break
+        print(f"Unexpected error: {e}")
+        # Optional: sleep longer if Influx fails
+        time.sleep(5)
 
-    time.sleep(10)
+    time.sleep(5)  # Wait before next reading

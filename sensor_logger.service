@@ -1,0 +1,14 @@
+[Unit]
+Description=Temperature/Humidity Sensor Logger
+After=network.target
+
+[Service]
+ExecStart=/home/muaddib/env/bin/python /home/muaddib/spice_watch/sensor_push.py
+Restart=on-failure
+User=muaddib
+WorkingDirectory=/home/muaddib/spice_watch
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
