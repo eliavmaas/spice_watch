@@ -12,10 +12,10 @@ services:
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=muaddib
-      - DOCKER_INFLUXDB_INIT_PASSWORD=melange!
+      - DOCKER_INFLUXDB_INIT_PASSWORD=
       - DOCKER_INFLUXDB_INIT_ORG=riderzlabs
       - DOCKER_INFLUXDB_INIT_BUCKET=arboretum
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=pi_SensorToken2025!
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=
 
   grafana:
     image: grafana/grafana
