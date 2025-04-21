@@ -10,9 +10,9 @@ location = "pi3-sensor"
 
 # InfluxDB Configuration
 url = "http://localhost:8086"
-token = "pi_SensorToken2025!"
-org = "riderzlabs"
-bucket = "arboretum"
+token = "!"
+org = ""
+bucket = ""
 
 # Connect to InfluxDB
 client = InfluxDBClient(url=url, token=token, org=org, timeout=10_000)
