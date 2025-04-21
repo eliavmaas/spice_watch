@@ -9,10 +9,10 @@ dhtDevice = adafruit_dht.DHT22(board.D4)
 location = "pi-zero-1"
 
 # InfluxDB Configuration
-url = "http://arrakis.local:8086"  # <-- Replace with your Pi 3 IP
-token = "pi_SensorToken2025!"
-org = "riderzlabs"
-bucket = "arboretum"
+url = ""  # <-- Replace with your Pi 3 IP
+token = "!"
+org = ""
+bucket = ""
 
 client = InfluxDBClient(url=url, token=token, org=org, timeout=10_000)
 write_api = client.write_api(write_options=SYNCHRONOUS)
